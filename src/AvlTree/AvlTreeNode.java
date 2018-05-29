@@ -14,8 +14,9 @@ public class AvlTreeNode {
     private AvlTreeNode rightChild;
 
     /**
-     * Constructor del objeto. inicializa los datos cada que se crea un objeto de la
-     * clase
+     * Constructor del objeto. 
+     * inicializa los datos cada que se crea un objeto de la clase
+     * @param data, valor que el nodo va a almacenar
      */
     public AvlTreeNode(int data) {
         this.data = data;
@@ -25,8 +26,8 @@ public class AvlTreeNode {
     }
 
     /**
-     * Getters y Setters del objeto, Permiten acceder a los datos privados del
-     * objeto (Encapsulamiento)
+     * Getters y Setters del objeto, 
+     * Permiten acceder a los datos privados del objeto (Encapsulamiento)
      */
     public int getData() {
         return data;

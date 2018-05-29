@@ -7,35 +7,45 @@ public class Main {
     public static void main(String[] args) {
         AvlTree tree = new AvlTree();
 
-        try {
-            tree.setRoot(tree.insertNode(tree.getRoot(), 9));
-            tree.setRoot(tree.insertNode(tree.getRoot(), 5));
-            tree.setRoot(tree.insertNode(tree.getRoot(), 10));
-            tree.setRoot(tree.insertNode(tree.getRoot(), 0));
-            tree.setRoot(tree.insertNode(tree.getRoot(), 6));
-            tree.setRoot(tree.insertNode(tree.getRoot(), 11));
-            tree.setRoot(tree.insertNode(tree.getRoot(), -1));
-            tree.setRoot(tree.insertNode(tree.getRoot(), 1));
-            tree.setRoot(tree.insertNode(tree.getRoot(), 2));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(tree.insertData(9));
+        System.out.println(tree.insertData(5));
+        System.out.println(tree.insertData(10));
+        System.out.println(tree.insertData(0));
+        System.out.println(tree.insertData(6));
+        System.out.println(tree.insertData(11));
+        System.out.println(tree.insertData(-1));
+        System.out.println(tree.insertData(1));
+        System.out.println(tree.insertData(2));
 
-        tree.preOrder(tree.getRoot());
+        System.out.println("--");
+        System.out.println(tree.getPreOrder());
+        System.out.println("--");
 
-        try {
-            tree.setRoot(tree.deleteNode(tree.getRoot(), 10));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(tree.deleteData(10));
 
-        tree.preOrder(tree.getRoot());
-
-        try {
-            System.out.println(tree.searchNode(tree.getRoot(), 34).getData());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("--");
+        System.out.println(tree.getPreOrder());
+        //System.out.println(tree.preOrder(tree.getRoot()));
+        System.out.println("--");
+        
+        System.out.println("--");
+        System.out.println(tree.searchData(0));
+        System.out.println("--");
+        
+        System.out.println("--");
+        System.out.println(tree.getCountLeaves());
+        System.out.println("--");
+        
+        System.out.println("--");
+        System.out.println(tree.getTreeHeight());
+        System.out.println("--");
+        
+        System.out.println("--");
+        System.out.println(tree.getNumberNodes());
+        System.out.println("--");
+        
+        System.out.println("--");
+        System.out.println(tree.getFullTree());
+        System.out.println("--");
     }
 }
-
