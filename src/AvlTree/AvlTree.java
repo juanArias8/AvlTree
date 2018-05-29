@@ -8,14 +8,16 @@ public class AvlTree {
     private AvlTreeNode root;
 
     /**
-     * Constructor del árbol AVL Inicializa la raíz como vacía
+     * Constructor del árbol AVL
+     * Inicializa la raíz como vacía
      */
     public AvlTree() {
         root = null;
     }
 
     /**
-     * Getters y Setters de la clase getRoot: Devuelve el nodo raíz del árbol
+     * Getters y Setters de la clase
+     * getRoot: Devuelve el nodo raíz del árbol
      * setRoot: Asigna el nodo raíz al árbol
      */
     public AvlTreeNode getRoot() {
@@ -27,7 +29,14 @@ public class AvlTree {
     }
 
     /**
-     * getHeight(node) Obtiene el factor de balance de un nodo determinado
+     * *****************************************************************
+     ******************* MÉTODOS PRIVADOS **************************
+     * *****************************************************************
+     */
+    
+    /**
+     * getHeight(node)
+     * Obtiene el factor de balance de un nodo determinado
      */
     private int getHeight(AvlTreeNode node) {
         if (node == null) {
@@ -38,15 +47,17 @@ public class AvlTree {
     }
 
     /**
-     * getMaxValue(x, y) Obtiene el valor máximo entre dos posibilidades
+     * getMaxValue(x, y)
+     * Obtiene el valor máximo entre dos posibilidades
      */
     private int getMaxValue(int x, int y) {
         return (x > y) ? x : y;
     }
 
     /**
-     * rightRotation(node) Realiza una rotación a la derecha con base al nodo pasado
-     * como parámetro
+     * rightRotation(node)
+     * Realiza una rotación a la derecha con base al nodo
+     * pasado como parámetro
      */
     private AvlTreeNode rightRotation(AvlTreeNode node) {
         AvlTreeNode auxNode1 = node.getLeftChild();
@@ -56,20 +67,21 @@ public class AvlTree {
         node.setLeftChild(auxNode2);
 
         node.setBalanceFactor(getMaxValue(
-                getHeight(node.getLeftChild()), 
+                getHeight(node.getLeftChild()),
                 getHeight(node.getRigthChild())
-            ) + 1);
+        ) + 1);
 
         auxNode1.setBalanceFactor(getMaxValue(
-                getHeight(auxNode1.getLeftChild()), 
+                getHeight(auxNode1.getLeftChild()),
                 getHeight(auxNode1.getRigthChild())
-            ) + 1);
+        ) + 1);
 
         return auxNode1;
     }
 
     /**
-     * leftRotation(node) Realiza una rotación a la izquierda con base al nodo
+     * leftRotation(node) 
+     * Realiza una rotación a la izquierda con base al nodo
      * pasado como parámetro
      */
     private AvlTreeNode leftRotation(AvlTreeNode node) {
@@ -82,18 +94,19 @@ public class AvlTree {
         node.setBalanceFactor(getMaxValue(
                 getHeight(node.getLeftChild()),
                 getHeight(node.getRigthChild())
-            ) + 1);
+        ) + 1);
 
         auxNode1.setBalanceFactor(getMaxValue(
-                getHeight(auxNode1.getLeftChild()), 
+                getHeight(auxNode1.getLeftChild()),
                 getHeight(auxNode1.getRigthChild())
-            ) + 1);
+        ) + 1);
 
         return auxNode1;
     }
 
     /**
-     * getBalance(node) calcula el factor de balance de un nodo determinado
+     * getBalance(node) 
+     * calcula el factor de balance de un nodo determinado
      */
     private int getBalance(AvlTreeNode node) {
         if (node == null) {
@@ -101,12 +114,13 @@ public class AvlTree {
         } else {
             return getHeight(
                     node.getLeftChild()) - getHeight(node.getRigthChild()
-                );
+            );
         }
     }
 
     /**
-     * getMinValue(node) obtiene el valor mínimo de un subarbol
+     * getMinValue(node) 
+     * obtiene el valor mínimo de un subarbol
      */
     private AvlTreeNode getMinValue(AvlTreeNode node) {
         while (node.getLeftChild() != null) {
@@ -116,10 +130,12 @@ public class AvlTree {
     }
 
     /**
-     * insertNode(node, data) Inserta un nuevo nodo en el árbol AVL en caso de que
-     * no exista Balancea el ábol de ser necesario luego de la insersión
+     * insertNode(node, data) 
+     * Inserta un nuevo nodo en el árbol AVL en caso de
+     * que no exista Balancea el ábol de ser necesario luego de la insersión
+     * Método privado, sólo puede ser invocado desde el interior de la clase
      */
-    public AvlTreeNode insertNode(AvlTreeNode node, int data) {
+    private AvlTreeNode insertNode(AvlTreeNode node, int data) {
         if (node == null) {
             return (new AvlTreeNode(data));
         }
@@ -135,7 +151,7 @@ public class AvlTree {
         node.setBalanceFactor(getMaxValue(
                 getHeight(node.getLeftChild()),
                 getHeight(node.getRigthChild())
-            ) + 1);
+        ) + 1);
 
         int balance = getBalance(node);
 
@@ -161,10 +177,12 @@ public class AvlTree {
     }
 
     /**
-     * deleteNode(root, data) elimina un nodo deseado del árbol en caso de que
-     * exista Balancea el árbol de ser necesario luego de la eliminación
+     * deleteNode(root, data)
+     * elimina un nodo deseado del árbol en caso de que
+     * exista Balancea el árbol de ser necesario luego de la eliminación Método
+     * privado,sólo puede ser invocado desde el interior de la clase
      */
-    public AvlTreeNode deleteNode(AvlTreeNode root, int data) {
+    private AvlTreeNode deleteNode(AvlTreeNode root, int data) {
         if (root == null) {
             return root;
         }
@@ -200,9 +218,9 @@ public class AvlTree {
         }
 
         root.setBalanceFactor(getMaxValue(
-                getHeight(root.getLeftChild()), 
+                getHeight(root.getLeftChild()),
                 getHeight(root.getRigthChild())
-            ) + 1);
+        ) + 1);
 
         int balance = getBalance(root);
 
@@ -228,10 +246,11 @@ public class AvlTree {
     }
 
     /**
-     * searchData(root, data) busca el nodo cuyo valor coinsida con el pasado por
-     * parámetro
+     * searchData(root, data) 
+     * busca el nodo cuyo valor coinsida con el pasado
+     * por parámetro
      */
-    public AvlTreeNode searchNode(AvlTreeNode root, int data) {
+    private AvlTreeNode searchNode(AvlTreeNode root, int data) {
         if (root == null) {
             return null;
         } else if (root.getData() == data) {
@@ -242,38 +261,131 @@ public class AvlTree {
             return searchNode(root.getRigthChild(), data);
         }
     }
-
-    /*
-     * inOrder(node) recorre el árbol bajo el algoritmo inOrden
+    
+      /*
+     * inOrder(node) 
+     * recorre el árbol bajo el algoritmo inOrden
      */
-    public void inOrder(AvlTreeNode node) {
+    private String messageInOrder = "";
+    private void inOrder(AvlTreeNode node) {
         if (node != null) {
             inOrder(node.getLeftChild());
-            System.out.print(" [" + node.getData() + "] ");
+            messageInOrder += " [" + node.getData() + "] ";
             inOrder(node.getRigthChild());
         }
     }
 
     /*
-     * preOrder(node) recorre el árbol bajo el algoritmo preOrder
+     * preOrder(node) 
+     * recorre el árbol bajo el algoritmo preOrder
      */
-    public void preOrder(AvlTreeNode node) {
+    private String messagePreOrder = "";
+    private void preOrder(AvlTreeNode node) {
         if (node != null) {
-            System.out.print(" [" + node.getData() + "] ");
+            messagePreOrder += " [" + node.getData() + "] ";
             preOrder(node.getLeftChild());
             preOrder(node.getRigthChild());
         }
     }
-
-    /*
-     * postOrder(node) recorre el árbol bajo el algoritmo postOrder
+    
+     /*
+     * postOrder(node) 
+     * recorre el árbol bajo el algoritmo postOrder
      */
-    public void postOrder(AvlTreeNode node) {
+    private String messagePostorder = "";
+    private void postOrder(AvlTreeNode node) {
         if (node != null) {
             postOrder(node.getLeftChild());
             postOrder(node.getRigthChild());
-            System.out.print(" [" + node.getData() + "] ");
+            messagePostorder += " [" + node.getData() + "] ";
         }
     }
-}
 
+    /**
+     * *****************************************************************
+     ******************** MÉTODOS PÚBLICOS *************************
+     * *****************************************************************
+     */
+    /*
+    * insertNode(data)
+    * Inserta el valor de data en el árbol AVL
+    * Método accesible desde fuera de la clase
+     */
+    public String insertData(int data) {
+        String message;
+        try {
+            setRoot(insertNode(getRoot(), data));
+            message = "El dato " + data + " ha sido insertado";
+        } catch (Exception e) {
+            message = "Lo sentimos, no ha sido posible insertar el dato";
+            System.out.println(e.getMessage());
+        }
+        return message;
+    }
+
+    /*
+    * deleteData(data)
+    * elimina el nodo que contenga el valor de data
+    * Método accesible desde fuera de la clase
+     */
+    public String deleteData(int data) {
+        String message;
+        try {
+            setRoot(deleteNode(getRoot(), data));
+            message = "El dato " + data + " ha sido eliminado";
+        } catch (Exception e) {
+            message = "Lo sentimos, no ha sido posible eliminar el dato"; 
+            System.out.println(e.getMessage());
+        }
+        return message;
+    }
+
+    /*
+    * searchData(data)
+    * Busca el nodo que contenga el valor de data
+     */
+    public String searchData(int data) {
+        String message;
+        try {
+            int dataResponse = searchNode(getRoot(), data).getData();
+            message = "El dato " + dataResponse + "Se encuentra en el árbol";
+        } catch (Exception e) {
+            message = "El dato " + data + " no ha sido encontrado"; 
+            System.out.println(e.getMessage());
+        }
+        return message;
+    }
+    
+    /*
+    * getPreorder()
+    * Método de accesso público, hace un llamado a preOrder()
+    * y almacena los valores del recorrido en la variable messagePreOrder
+    */
+    public String getPreOrder(){
+        messagePreOrder = "";
+        preOrder(getRoot());
+        return messagePreOrder;
+    }   
+    
+     /*
+    * getInOrder()
+    * Método de accesso público, hace un llamado a inOrder()
+    * y almacena los valores del recorrido en la variable messageInOrder
+    */
+    public String getInOrder(){
+        messageInOrder = "";
+        inOrder(getRoot());
+        return messageInOrder;
+    }   
+    
+     /*
+    * getPostOrder()
+    * Método de accesso público, hace un llamado a postOrder()
+    * y almacena los valores del recorrido en la variable messagePostorder
+    */
+    public String getPostOrder(){
+        messagePostorder = "";
+        preOrder(getRoot());
+        return messagePostorder;
+    }   
+}
