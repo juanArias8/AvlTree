@@ -1,6 +1,9 @@
 package AvlTree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 public class AvlTree {
@@ -343,7 +346,7 @@ public class AvlTree {
      * @param root, nodo raíz del árbol
      * @return true si el árbol es lleno, false de lo contrario
      */
-    public boolean isFullTree(AvlTreeNode root){
+    private boolean isFullTree(AvlTreeNode root){
         int treeHeight = treeHeight(root);
         int numberNodes = countNodes(root);
         int full = (int)Math.pow(2, (treeHeight)) - 1;
@@ -380,7 +383,7 @@ public class AvlTree {
      * @param data, dato cuyo padre se quiere encontrar en el árbol
      * @return nodo que contiene el padre del dato data
      */
-    public AvlTreeNode nodeParent(AvlTreeNode root, int data){
+    private AvlTreeNode nodeParent(AvlTreeNode root, int data){
        AvlTreeNode auxNode;
        AvlTreeNode parent = null;
        if(root != null){
@@ -415,7 +418,7 @@ public class AvlTree {
      * @param data, dato cuyos ancestros se quieren encontrar en el árbol
      * @return pila que contiene los ancestros del nodo que contiene el dato data
      */
-    public Stack nodeAncestors(AvlTreeNode root, int data){
+    private Stack nodeAncestors(AvlTreeNode root, int data){
         Stack stack = new Stack();
         AvlTreeNode parent = null;
         parent = nodeParent(root, data);
@@ -424,6 +427,68 @@ public class AvlTree {
             parent = nodeParent(root, parent.getData());
         }
         return stack;
+    }
+    
+    /**
+     * dephFirstSearch(root)
+     * Busqueda en profundidad sobre el árbol
+     * @param root, nodo raíz del árbol
+     * @return Lista que contiene los nodos ordenados por recorrido DFS
+     */
+    private List dephFirstSearch(AvlTreeNode root){
+        Stack stack = new Stack();
+        List<AvlTreeNode> dfsResult = new ArrayList<>();
+        
+        if(root == null){
+            return null;
+        }
+        
+        stack.push(root);
+        
+        while(!stack.isEmpty()){
+            AvlTreeNode auxNode = (AvlTreeNode)stack.pop();
+            dfsResult.add(auxNode);
+            
+             if(auxNode.getRigthChild() != null){
+                stack.push(auxNode.getRigthChild());
+            }
+            
+            if(auxNode.getLeftChild() != null){
+                stack.push(auxNode.getLeftChild());
+            }           
+        }
+        return dfsResult;
+    }
+    
+    /**
+     * breadthFirstSearch(root)
+     * Busqueda en anchura sobre el árbol
+     * @param root, nodo raíz del árbol
+     * @return Lista que contiene los nodos ordenados por recorrido BFS
+     */
+    private List breadthFirstSearch(AvlTreeNode root){
+        Queue<AvlTreeNode> queue = new LinkedList<>();
+        List<AvlTreeNode> bfsResult = new ArrayList<>();
+        
+        if(root == null){
+            return null;
+        }
+        
+        queue.add(root);
+        
+        while(!queue.isEmpty()){
+            AvlTreeNode auxNode = queue.poll();
+            bfsResult.add(auxNode);
+            
+            if(auxNode.getLeftChild() != null){
+                queue.add(auxNode.getLeftChild());
+            }
+            
+            if(auxNode.getRigthChild() != null){
+                queue.add(auxNode.getRigthChild());
+            }
+        }
+        return bfsResult;
     }
     
     /**
@@ -676,6 +741,50 @@ public class AvlTree {
              }
          } catch (Exception e) {
               message = "Lo sentimos, no ha sido posible encontrar los ancestros de " + data;
+              System.out.println(e.getMessage());
+         }
+         return message;
+     }
+     
+     /**
+      * getDepthFirstSearch()
+      * Hace un llamado al método dephFirstSearch(root)
+      * para recorrer el árbol por profundidad.
+      *  Método accesible desde fuera de la clase
+      * @return  mensage equivalente al resultado de la operación
+      */
+     public String getDepthFirstSearch(){
+         String message = "";
+         try {
+             List<AvlTreeNode> dfsList = new ArrayList<>();
+             dfsList = dephFirstSearch(getRoot());
+             for (AvlTreeNode node : dfsList) {
+                 message += "[ " + node.getData() + " ]";
+             }
+         } catch (Exception e) {
+             message = "Lo sentimos, no ha sido posible realizar la búsqueda por profundidad ";
+              System.out.println(e.getMessage());
+         }
+         return message;
+     }
+     
+      /**
+      * getBreadthFirstSearch()
+      * Hace un llamado la método breadthFirstSearch(root)
+      * para reccorer el árbol por anchura.
+      * Método accesible desde fuera de la clase
+      * @return mensage equivalente al resultado de la operación
+      */
+     public String getBreadthFirstSearch(){
+         String message = "";
+         try {
+             List<AvlTreeNode> bfsList = new ArrayList<>();
+             bfsList = breadthFirstSearch(getRoot());
+             for (AvlTreeNode node : bfsList) {
+                 message += "[ " + node.getData() + " ]";
+             }
+         } catch (Exception e) {
+             message = "Lo sentimos, no ha sido posible realizar la búsqueda por anchura ";
               System.out.println(e.getMessage());
          }
          return message;

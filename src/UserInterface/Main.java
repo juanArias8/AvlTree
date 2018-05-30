@@ -7,16 +7,13 @@ public class Main {
     public static void main(String[] args) {
         AvlTree tree = new AvlTree();
 
-        System.out.println(tree.insertData(50));
-        System.out.println(tree.insertData(17));
-        System.out.println(tree.insertData(9));
-//        System.out.println(tree.insertData(4));
-//        System.out.println(tree.insertData(14));
-//        System.out.println(tree.insertData(23));
-//        System.out.println(tree.insertData(19));
-//        System.out.println(tree.insertData(24));
-//        System.out.println(tree.insertData(2));
-//        System.out.println(tree.insertData(21));
+        System.out.println(tree.insertData(5));
+        System.out.println(tree.insertData(10));
+        System.out.println(tree.insertData(15));
+        System.out.println(tree.insertData(20));
+        System.out.println(tree.insertData(25));
+        System.out.println(tree.insertData(30));
+        System.out.println(tree.insertData(35));
 
         System.out.println("--");
         System.out.println(tree.getPreOrder());
@@ -30,7 +27,7 @@ public class Main {
         System.out.println("--");
         
         System.out.println("--");
-        System.out.println(tree.searchData(0));
+        System.out.println(tree.searchData(10));
         System.out.println("--");
         
         System.out.println("--");
@@ -50,15 +47,23 @@ public class Main {
         System.out.println("--");
         
         System.out.println("--");
-        System.out.println(tree.getNodeParent(9));
+        System.out.println(tree.getNodeParent(25));
         System.out.println("--");
         
         System.out.println("--");
-        System.out.println(tree.getNodeAncestors(17));
+        System.out.println(tree.getNodeAncestors(35));
         System.out.println("--");
         
         System.out.println("--");
         System.out.println(tree.getIsCompleteTree());
+        System.out.println("--");
+        
+        System.out.println("--");
+        System.out.println(tree.getDepthFirstSearch());
+        System.out.println("--");
+        
+         System.out.println("--");
+        System.out.println(tree.getBreadthFirstSearch());
         System.out.println("--");
     }
 }

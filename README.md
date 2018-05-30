@@ -14,10 +14,12 @@
 * in order travel
 * pre order travel
 * post order travel
+* DFS travel
+* BFS travel
 * count number of leaves
 * count number of nodes
-* get tree height
 * check if tree is full
 * check if tree is complete
+* get tree height
 * get node parent
 * get node ancestors
