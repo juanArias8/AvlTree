@@ -45,7 +45,15 @@ public class Main {
         System.out.println("--");
         
         System.out.println("--");
-        System.out.println(tree.getFullTree());
+        System.out.println(tree.getIsFullTree());
+        System.out.println("--");
+        
+        System.out.println("--");
+        System.out.println(tree.getNodeParent(6));
+        System.out.println("--");
+        
+         System.out.println("--");
+        System.out.println(tree.getNodeAncestors(6));
         System.out.println("--");
     }
 }

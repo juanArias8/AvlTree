@@ -1,5 +1,8 @@
 package AvlTree;
 
+import java.util.List;
+import java.util.Stack;
+
 public class AvlTree {
 
     /**
@@ -339,7 +342,7 @@ public class AvlTree {
     /**
      * isFullTree(root)
      * Determina si un árbol es lleno
-     * @param root
+     * @param root, nodo raíz del árbol
      * @return true si el árbol es lleno, false de lo contrario
      */
     public boolean isFullTree(AvlTreeNode root){
@@ -351,6 +354,59 @@ public class AvlTree {
         }
         return false;
     }    
+    
+    /**
+     * nodeParent(root, data)
+     * Retorna el padre de el nodo que contenga el dato data
+     * @param root, nodo raíz del árbol
+     * @param data, dato cuyo padre se quiere encontrar en el árbol
+     * @return nodo que contiene el padre del dato data
+     */
+    public AvlTreeNode nodeParent(AvlTreeNode root, int data){
+       AvlTreeNode auxNode;
+       AvlTreeNode parent = null;
+       if(root != null){
+           if(root.getLeftChild() != null){
+               auxNode = root.getLeftChild();
+               if(auxNode.getData() == data){
+                   parent = root;
+               }
+           }
+           if(parent == null){
+               if(root.getRigthChild() != null){
+                   auxNode = root.getRigthChild();
+                   if(auxNode.getData() == data){
+                       parent = root;
+                   }
+               }
+           }
+            if(parent == null){
+               parent = nodeParent(root.getLeftChild(), data);
+           }
+            if(parent == null){
+               parent = nodeParent(root.getRigthChild(), data);
+           }
+       }
+       return parent;
+    }
+    
+    /**
+     * nodeAncestors(root, data)
+     * Retorna los ancestros del nodo que contiene el dato data
+     * @param root, nodo raíz del árbol
+     * @param data, dato cuyos ancestros se quieren encontrar en el árbol
+     * @return pila que contiene los ancestros del nodo que contiene el dato data
+     */
+    public Stack nodeAncestors(AvlTreeNode root, int data){
+        Stack stack = new Stack();
+        AvlTreeNode parent = null;
+        parent = nodeParent(root, data);
+        while (parent != null){
+            stack.push(parent);
+            parent = nodeParent(root, parent.getData());
+        }
+        return stack;
+    }
     
     /**
      * inOrder(node) 
@@ -496,6 +552,7 @@ public class AvlTree {
     /**
      * getCountLeaves()
      * Hace un llamado al método para contar el número de hojas del árbol
+     * Método accesible desde fuera de la clase
      * @return mensage equivalente al resultado de la operación
      */
     public String getCountLeaves(){
@@ -514,6 +571,7 @@ public class AvlTree {
     /**
      * getTreeHeight()
      * Hace un llamado al método para obtener la altura del árbol
+     * Método accesible desde fuera de la clase
      * @return   mensage equivalente al resultado de la operación
      */
     public String getTreeHeight(){
@@ -532,6 +590,7 @@ public class AvlTree {
     /**
      * getNumberNodes()
      * Hace un llamado al método para contar el número de nodos del árbol
+     * Método accesible desde fuera de la clase
      * @return   mensage equivalente al resultado de la operación
      */
      public String getNumberNodes(){
@@ -548,11 +607,12 @@ public class AvlTree {
     }
      
      /**
-      * getFullTree()
+      * getIsFullTree()
       * Hace un llamado al método para verificar si el árbol es lleno o no
+      * Método accesible desde fuera de la clase
       * @return  mensage equivalente al resultado de la operación
       */
-     public String getFullTree(){
+     public String getIsFullTree(){
          String message = "";
          boolean isFull = false;
          try {
@@ -564,6 +624,50 @@ public class AvlTree {
              }
          } catch (Exception e) {
               message = "Lo sentimos, no se ha podido verificar si el árbol es lleno";
+              System.out.println(e.getMessage());
+         }
+         return message;
+     }
+     
+     /**
+      * getNodeParent(data)
+      * Hace un llamado al método nodeParent(root, data) 
+      * para obtener el padre de un nodo 
+      * Método accesible desde fuera de la clase
+      * @param data, dato cuyo padre se quiere encontrar en el árbol
+      * @return mensage equivalente al resultado de la operación
+      */
+     public String getNodeParent(int data){
+         String message = "";
+         try {
+             AvlTreeNode parent = nodeParent(getRoot(), data);
+             message = "El padre de " + data + " es " + parent.getData();
+         } catch (Exception e) {
+             message = "Lo sentimos, no ha sido posible encontrar el padre de " + data;
+              System.out.println(e.getMessage());
+         }
+         return message;
+     }
+     
+     /**
+      * getNodeAncestors(data)
+      * Hace un llamado al método nodeAncestors(root, data) 
+      * para obtener los ancestros de un nodo
+      * Método accesible desde fuera de la clase
+      * @param data, dato cuyos ancestros se quieren encontrar en el árbol
+      * @return  mensage equivalente al resultado de la operación
+      */
+     public String getNodeAncestors(int data){
+         String message = "";
+         Stack stack = new Stack();
+         try {
+             stack = nodeAncestors(getRoot(), data);
+             while(!stack.isEmpty()){
+                 AvlTreeNode parent = (AvlTreeNode)stack.pop();
+                 message += "[ " + parent.getData() +" ]";
+             }
+         } catch (Exception e) {
+              message = "Lo sentimos, no ha sido posible encontrar los ancestros de " + data;
               System.out.println(e.getMessage());
          }
          return message;
