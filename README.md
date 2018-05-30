@@ -6,6 +6,11 @@
 [Avl Tree](https://en.wikipedia.org/wiki/AVL_tree)
 
 ***
+## User Interface
+***
+![Avl Tree](image.png)
+
+***
 ## Implemented methods
 ***
 * insert data
