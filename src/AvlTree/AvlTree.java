@@ -18,20 +18,32 @@ public class AvlTree {
      * Inicializa la raíz como vacía
      */
     public AvlTree() {
-        root = null;
+        this.root = null;
     }
 
     /**
-     * Getters y Setters de la clase
-     * getRoot: Devuelve el nodo raíz del árbol
-     * setRoot: Asigna el nodo raíz al árbol
+     * getRoot()
+     * Retorna el nodo raíz
+     * @return nodo raíz
      */
     public AvlTreeNode getRoot() {
         return root;
     }
-
+    
+    /**
+     * setRoot()
+     * Asigna un nodo como raíz
+     * @param node, nodo que pretende ser raíz
+     */
     public void setRoot(AvlTreeNode node) {
         this.root = node;
+    }
+    
+    /**
+     * resetTree() Elimina el árbol
+     */
+    public void resetTree(){
+        setRoot(null);
     }
 
     /**
@@ -500,7 +512,7 @@ public class AvlTree {
     private void inOrder(AvlTreeNode node) {
         if (node != null) {
             inOrder(node.getLeftChild());
-            messageInOrder += " [" + node.getData() + "] ";
+            messageInOrder += "[ " + node.getData() + " ] ";
             inOrder(node.getRigthChild());
         }
     }
@@ -513,7 +525,7 @@ public class AvlTree {
     private String messagePreOrder = "";
     private void preOrder(AvlTreeNode node) {
         if (node != null) {
-            messagePreOrder += " [" + node.getData() + "] ";
+            messagePreOrder += "[ " + node.getData() + " ] ";
             preOrder(node.getLeftChild());
             preOrder(node.getRigthChild());
         }
@@ -529,7 +541,7 @@ public class AvlTree {
         if (node != null) {
             postOrder(node.getLeftChild());
             postOrder(node.getRigthChild());
-            messagePostorder += " [" + node.getData() + "] ";
+            messagePostorder += "[ " + node.getData() + " ] ";
         }
     }
 
@@ -711,7 +723,10 @@ public class AvlTree {
       * @return mensage equivalente al resultado de la operación
       */
      public String getNodeParent(int data){
-         String message = "";
+         String message = 
+                  "------------------------------------------------------ "
+                + "Padre del Nodo"
+                + " ------------------------------------------------------\n";
          try {
              AvlTreeNode parent = nodeParent(getRoot(), data);
              message = "El padre de " + data + " es " + parent.getData();
@@ -731,13 +746,16 @@ public class AvlTree {
       * @return  mensage equivalente al resultado de la operación
       */
      public String getNodeAncestors(int data){
-         String message = "";
+         String message = 
+                 "---------------------------------------------------- "
+                + "Ancestros del Nodo"
+                + " ----------------------------------------------------\n";
          Stack stack = new Stack();
          try {
              stack = nodeAncestors(getRoot(), data);
              while(!stack.isEmpty()){
                  AvlTreeNode parent = (AvlTreeNode)stack.pop();
-                 message += "[ " + parent.getData() +" ]";
+                 message += "[ " + parent.getData() +" ] ";
              }
          } catch (Exception e) {
               message = "Lo sentimos, no ha sido posible encontrar los ancestros de " + data;
@@ -754,12 +772,15 @@ public class AvlTree {
       * @return  mensage equivalente al resultado de la operación
       */
      public String getDepthFirstSearch(){
-         String message = "";
+         String message = 
+                   "------------------------------------------------------- "
+                + "Depth First Search"
+                + " -------------------------------------------------------\n";
          try {
              List<AvlTreeNode> dfsList = new ArrayList<>();
              dfsList = dephFirstSearch(getRoot());
              for (AvlTreeNode node : dfsList) {
-                 message += "[ " + node.getData() + " ]";
+                 message += "[ " + node.getData() + " ] ";
              }
          } catch (Exception e) {
              message = "Lo sentimos, no ha sido posible realizar la búsqueda por profundidad ";
@@ -776,12 +797,15 @@ public class AvlTree {
       * @return mensage equivalente al resultado de la operación
       */
      public String getBreadthFirstSearch(){
-         String message = "";
+         String message = 
+                 "------------------------------------------------------- "
+                + "Breadth First Search"
+                + " -------------------------------------------------------\n";
          try {
              List<AvlTreeNode> bfsList = new ArrayList<>();
              bfsList = breadthFirstSearch(getRoot());
              for (AvlTreeNode node : bfsList) {
-                 message += "[ " + node.getData() + " ]";
+                 message += "[ " + node.getData() + " ] ";
              }
          } catch (Exception e) {
              message = "Lo sentimos, no ha sido posible realizar la búsqueda por anchura ";
@@ -797,7 +821,10 @@ public class AvlTree {
      * @return mensaje que contiene el recorrido
      */
     public String getPreOrder(){
-        messagePreOrder = "";
+        messagePreOrder = 
+               "----------------------------------------------------------- "
+                + "Pre Order"
+                + " ------------------------------------------------------------\n";
         preOrder(getRoot());
         return messagePreOrder;
     }   
@@ -809,7 +836,10 @@ public class AvlTree {
      * @return mensaje que contiene el recorrido
      */
     public String getInOrder(){
-        messageInOrder = "";
+        messageInOrder = 
+                "------------------------------------------------------------- "
+                + "In Order"
+                + " -------------------------------------------------------------\n";
         inOrder(getRoot());
         return messageInOrder;
     }   
@@ -821,8 +851,11 @@ public class AvlTree {
      * @return mensaje que contiene el recorrido
      */
     public String getPostOrder(){
-        messagePostorder = "";
-        preOrder(getRoot());
+        messagePostorder =
+                 "---------------------------------------------------------- "
+                + "Post Order"
+                + " ----------------------------------------------------------\n";
+        postOrder(getRoot());
         return messagePostorder;
     }  
 }
