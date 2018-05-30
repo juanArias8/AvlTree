@@ -18,5 +18,6 @@
 * count number of nodes
 * get tree height
 * check if tree is full
+* check if tree is complete
 * get node parent
 * get node ancestors

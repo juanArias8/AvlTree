@@ -147,9 +147,8 @@ public class AvlTree {
 
     /**
      * insertNode(node, data) 
-     * Inserta un nuevo nodo en el árbol AVL en caso de
-     * que no exista Balancea el ábol de ser necesario luego de la insersión
-     * Método privado, sólo puede ser invocado desde el interior de la clase
+     * Inserta un nuevo nodo en el árbol AVL en caso de que no exista, 
+     * Balancea el ábol de ser necesario luego de la insersión
      * @param node, nodo raíz del árbol
      * @param data, valor que se quiere insertar en el árbol
      * @return nuevo nodo insertado
@@ -197,9 +196,8 @@ public class AvlTree {
 
     /**
      * deleteNode(root, data)
-     * elimina un nodo deseado del árbol en caso de que
-     * exista Balancea el árbol de ser necesario luego de la eliminación Método
-     * privado,sólo puede ser invocado desde el interior de la clase
+     * elimina un nodo deseado del árbol en caso de que exista, 
+     * Balancea el árbol de ser necesario luego de la eliminación Método.
      * @param root, nodo raíz del árbol
      * @param data, valor que se quiere eliminar del árbol
      * @return nodo eliminado
@@ -355,9 +353,29 @@ public class AvlTree {
         return false;
     }    
     
+       /**
+     * isCompleteTree(root, index)
+     * Determina si un árbol es completo
+     * @param root, nodo raíz del árbol
+     * @param index, índice de un nodo, (i para root, 2*i+1 para el hijo izquierdo, 2*i+2 para el hijo derecho)
+     * @return true si el árbol es completo, false de lo contrario
+     */
+    private boolean isCompleteTree(AvlTreeNode root, int index, int numberNodes){
+        if(root == null){
+            return true;
+        }
+        
+        if(index >= numberNodes){
+            return false;
+        }
+        
+        return isCompleteTree(root.getLeftChild(), (2 * index + 1), numberNodes) 
+                && isCompleteTree(root.getRigthChild(), (2 * index + 2), numberNodes);
+    }
+    
     /**
      * nodeParent(root, data)
-     * Retorna el padre de el nodo que contenga el dato data
+     * Retorna el padre del nodo que contenga el dato data
      * @param root, nodo raíz del árbol
      * @param data, dato cuyo padre se quiere encontrar en el árbol
      * @return nodo que contiene el padre del dato data
@@ -458,7 +476,8 @@ public class AvlTree {
 
     /**
      *  insertNode(data)
-     * Hace un llamado al método para insertar un nuevo nodo con el valor data
+     * Hace un llamado al método insertNode(root, data)
+     * para insertar un nuevo nodo con el valor data.
      * Método accesible desde fuera de la clase
      * @param data, valor a insertar en el árbol
      * @return mensage equivalente al resultado de la operación
@@ -477,7 +496,8 @@ public class AvlTree {
 
     /**
      * deleteData(data)
-    * Hace un llamado al método para eliminar el nodo que contenga el valor data
+    * Hace un llamado al método deleteNode(root, data)
+    * para eliminar el nodo que contenga el valor data.
     * Método accesible desde fuera de la clase
      * @param data, valor a eliminar del árbol
      * @return mensage equivalente al resultado de la operación
@@ -496,7 +516,8 @@ public class AvlTree {
 
     /**
      * searchData(data)
-    * Hace un llamado al método para buscar el nodo que contenga el valor data
+    * Hace un llamado al método searchNode(root, data)
+    * para buscar el nodo que contenga el valor data.
     * Método accesible desde fuera de la clase
      * @param data, valor a buscar en el árbol
      * @return mensage equivalente al resultado de la operación
@@ -511,47 +532,12 @@ public class AvlTree {
             System.out.println(e.getMessage());
         }
         return message;
-    }
-    
-    /**
-     * getPreorder()
-     * Recorre el árbol bajo el algoritmo pre order
-     * Método accesible desde fuera de la clase
-     * @return mensaje que contiene el recorrido
-     */
-    public String getPreOrder(){
-        messagePreOrder = "";
-        preOrder(getRoot());
-        return messagePreOrder;
-    }   
-    
-     /**
-     * getInOrder()
-     * Recorre el árbol bajo el algoritmo in order
-     * Método accesible desde fuera de la clase
-     * @return mensaje que contiene el recorrido
-     */
-    public String getInOrder(){
-        messageInOrder = "";
-        inOrder(getRoot());
-        return messageInOrder;
-    }   
-    
-      /**
-     * getPostOrder()
-     * Recorre el árbol bajo el algoritmo post order
-     * Método accesible desde fuera de la clase
-     * @return mensaje que contiene el recorrido
-     */
-    public String getPostOrder(){
-        messagePostorder = "";
-        preOrder(getRoot());
-        return messagePostorder;
-    }   
+    } 
     
     /**
      * getCountLeaves()
-     * Hace un llamado al método para contar el número de hojas del árbol
+     * Hace un llamado al método countLeaves(root) 
+     * para contar el número de hojas del árbol.
      * Método accesible desde fuera de la clase
      * @return mensage equivalente al resultado de la operación
      */
@@ -570,8 +556,9 @@ public class AvlTree {
     
     /**
      * getTreeHeight()
-     * Hace un llamado al método para obtener la altura del árbol
-     * Método accesible desde fuera de la clase
+     * Hace un llamado al método treeHeight(root)
+     * para obtener la altura del árbol.
+     * Método accesible desde fuera de la clase.
      * @return   mensage equivalente al resultado de la operación
      */
     public String getTreeHeight(){
@@ -589,7 +576,8 @@ public class AvlTree {
     
     /**
      * getNumberNodes()
-     * Hace un llamado al método para contar el número de nodos del árbol
+     * Hace un llamado al método countNodes(root)
+     * para contar el número de nodos del árbol.
      * Método accesible desde fuera de la clase
      * @return   mensage equivalente al resultado de la operación
      */
@@ -608,7 +596,8 @@ public class AvlTree {
      
      /**
       * getIsFullTree()
-      * Hace un llamado al método para verificar si el árbol es lleno o no
+      * Hace un llamado al método isFullTree(root)
+      * para verificar si el árbol es lleno o no.
       * Método accesible desde fuera de la clase
       * @return  mensage equivalente al resultado de la operación
       */
@@ -629,10 +618,29 @@ public class AvlTree {
          return message;
      }
      
+     public String getIsCompleteTree(){
+         String message = "";
+         int numberNodes = 0;
+         boolean isComplete = false;
+         try {
+             numberNodes = countNodes(getRoot());
+             isComplete = isCompleteTree(getRoot(), 0, numberNodes);
+             if(isComplete){
+                 message = "El árbol es completo";
+             } else {
+                 message = "El árbol no es completo";
+             }             
+         } catch (Exception e) {
+        message = "Lo sentimos, no se ha podido verificar si el árbol es completo";
+              System.out.println(e.getMessage());
+         }
+         return message;
+     }
+     
      /**
       * getNodeParent(data)
       * Hace un llamado al método nodeParent(root, data) 
-      * para obtener el padre de un nodo 
+      * para obtener el padre de un nodo .
       * Método accesible desde fuera de la clase
       * @param data, dato cuyo padre se quiere encontrar en el árbol
       * @return mensage equivalente al resultado de la operación
@@ -650,9 +658,9 @@ public class AvlTree {
      }
      
      /**
-      * getNodeAncestors(data)
+      * getNodeAncestors(data): 
       * Hace un llamado al método nodeAncestors(root, data) 
-      * para obtener los ancestros de un nodo
+      * para obtener los ancestros de un nodo.
       * Método accesible desde fuera de la clase
       * @param data, dato cuyos ancestros se quieren encontrar en el árbol
       * @return  mensage equivalente al resultado de la operación
@@ -672,4 +680,40 @@ public class AvlTree {
          }
          return message;
      }
+     
+      /**
+     * getPreorder()
+     * Recorre el árbol bajo el algoritmo pre order.
+     * Método accesible desde fuera de la clase
+     * @return mensaje que contiene el recorrido
+     */
+    public String getPreOrder(){
+        messagePreOrder = "";
+        preOrder(getRoot());
+        return messagePreOrder;
+    }   
+    
+     /**
+     * getInOrder()
+     * Recorre el árbol bajo el algoritmo in order.
+     * Método accesible desde fuera de la clase
+     * @return mensaje que contiene el recorrido
+     */
+    public String getInOrder(){
+        messageInOrder = "";
+        inOrder(getRoot());
+        return messageInOrder;
+    }   
+    
+      /**
+     * getPostOrder()
+     * Recorre el árbol bajo el algoritmo post order.
+     * Método accesible desde fuera de la clase
+     * @return mensaje que contiene el recorrido
+     */
+    public String getPostOrder(){
+        messagePostorder = "";
+        preOrder(getRoot());
+        return messagePostorder;
+    }  
 }
